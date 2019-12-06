@@ -30,7 +30,7 @@ func getOrbits(_ edges: [[String]]) -> [String: Node] {
   return orbits
 }
 
-// Find # of parents for all nodes, then sum all 
+// Find # of parents for all nodes, then sum all
 func calculateChecksum(_ orbits: [String: Node]) -> Int {
   var checkSum = 0
 
@@ -65,7 +65,6 @@ func calculateChecksum(_ orbits: [String: Node]) -> Int {
 
 // Part 2
 func calculateTransfers(_ orbits: [String: Node]) -> Int {
-  // Get the two nodes Santa and I are orbitting
   guard let youNode = orbits["YOU"], let santaNode = orbits["SAN"] else { fatalError() }
 
   let youParents = getParents(for: youNode, orbits)
@@ -104,20 +103,20 @@ let formatter: (String) -> ([[String]]) = { input in
 let testURL = Bundle.main.url(forResource: "test", withExtension: "txt")
 let testRaw = try String(contentsOf: testURL!, encoding: String.Encoding.utf8)
 let testEdges = formatter(testRaw)
-testEdges.count
+let testOrbits = getOrbits(testEdges)
 
 let test2URL = Bundle.main.url(forResource: "test2", withExtension: "txt")
 let test2Raw = try String(contentsOf: test2URL!, encoding: String.Encoding.utf8)
 let test2Edges = formatter(test2Raw)
-test2Edges.count
+let test2Orbits = getOrbits(test2Edges)
 
 let puzzleURL = Bundle.main.url(forResource: "puzzle", withExtension: "txt")
 let puzzleRaw = try String(contentsOf: puzzleURL!, encoding: String.Encoding.utf8)
 let puzzleEdges = formatter(puzzleRaw)
-puzzleEdges.count
+let puzzleOrbits = getOrbits(puzzleEdges)
 
-calculateChecksum(getOrbits(testEdges))
-calculateChecksum(getOrbits(puzzleEdges))
+calculateChecksum(testOrbits)
+calculateChecksum(puzzleOrbits)
 
-calculateTransfers(getOrbits(test2Edges))
-calculateTransfers(getOrbits(puzzleEdges))
+calculateTransfers(test2Orbits)
+calculateTransfers(puzzleOrbits)
